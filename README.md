@@ -67,3 +67,4 @@ Times Table
  
 ## Output Example 
 
+![query-output](https://github.com/ArataKagan/Postgres-Data-Modeling/blob/main/query1.png)
