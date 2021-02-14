@@ -21,7 +21,7 @@ In this project, I'm going to write an ETL pipeline that tranfers data from file
 
 ## Scheman Design 
 
-**Fact Table**: 
+**Fact Table**: <br/>
 Songplays Table
  * songplay_id int PRIMARY KEY
  * timestamp date REFERENCES times(start_time)
@@ -34,7 +34,7 @@ Songplays Table
  * user_agent text
 
 
-**Dimention Table**: 
+**Dimention Table**: <br/>
 Users Table
  * user_id int PRIMARY KEY
  * first_name text
@@ -64,3 +64,6 @@ Times Table
  * month int,
  * year int,
  * weekday text
+ 
+## Output Example 
+
