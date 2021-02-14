@@ -6,13 +6,6 @@ A hypothetical startup called Sparkify has been collecting songs and user activi
 
 In this project, I'm going to write an ETL pipeline that tranfers data from files in two local directories into tables in Postgres with Python. 
 
-## Prerequisites 
-
-- Python3
- * If you don't have Python3 installed in your computer, please install from this [link](https://www.python.org/downloads/)
- * For managing multiple Python versions, I highly recommend using pyenv. [Here](https://realpython.com/intro-to-pyenv/) is the great tutorial for it. 
-- Postgres 
- *  If you don't have Postgres installed, please install from this [link](https://www.postgresql.org/download/)
 
 ## Datasets
 - Song Dataset
@@ -29,48 +22,50 @@ In this project, I'm going to write an ETL pipeline that tranfers data from file
 
 ## Scheman Design 
 
-**Fact Table**: <br/>
-Songplays Table
- * songplay_id int PRIMARY KEY
- * timestamp date REFERENCES times(start_time)
- * user_id int REFERENCES users(user_id)
- * level text
- * song_id text REFERENCES songs(song_id)
- * artist_id text REFERENCES artists(artist_id)
- * session_id int
- * location text
- * user_agent text
+Star schema design is used to organize tables with one fact table (Songplay) and a several associated dimentional tables (Users, Songs, Artists, Times). 
+
+### Fact Table: 
+**Songplays Table**
+ * songplay_id INT PRIMARY KEY 
+ * timestamp DATE : Time table's start time 
+ * user_id INT : User ID 
+ * level TEXT : User level 
+ * song_id TEXT : Song ID 
+ * artist_id TEXT : Artist ID 
+ * session_id INT : Session ID 
+ * location TEXT : User's location  
+ * user_agent TEXT : User's agent to access the app 
 
 
-**Dimention Table**: <br/>
-Users Table
- * user_id int PRIMARY KEY
- * first_name text
- * last_name text 
- * gender text
- * level text
+### Dimention Table:
+**Users Table**
+ * user_id INT PRIMARY KEY
+ * first_name TEXT 
+ * last_name TEXT
+ * gender TEXT
+ * level TEXT 
 
-Songs Table
- * song_id text PRIMARY KEY
+**Songs Table**
+ * song_id TEXT PRIMARY KEY 
  * title text NOT NULL
- * artist_id text NOT NULL REFERENCES artists(artist_id)
- * year int
- * duration float NOT NULL
+ * artist_id TEXT NOT NULL : Refers to artist's ID
+ * year INT
+ * duration FLOAT NOT NULL
 
-Artists Table
- * artist_id text PRIMARY KEY
- * name text NOT NULL
- * location text
- * lattitude float
- * longitude float
+**Artists Table**
+ * artist_id TEXT PRIMARY KEY
+ * name TEXT NOT NULL
+ * location TEXT
+ * lattitude FLOAT
+ * longitude FLOAT
 
-Times Table 
- * start_time date PRIMARY KEY, 
- * hour int, 
- * day int, 
- * week int, 
- * month int,
- * year int,
+**Times Table** 
+ * start_time DATE PRIMARY KEY
+ * hour INT 
+ * day INT 
+ * week INT 
+ * month INT
+ * year INT 
  * weekday text
  
 ## Output Example 
