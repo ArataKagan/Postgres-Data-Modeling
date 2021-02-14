@@ -6,6 +6,14 @@ A hypothetical startup called Sparkify has been collecting songs and user activi
 
 In this project, I'm going to write an ETL pipeline that tranfers data from files in two local directories into tables in Postgres with Python. 
 
+## Prerequisites 
+
+- Python3
+ * If you don't have Python3 installed in your computer, please install from this [link](https://www.python.org/downloads/)
+ * For managing multiple Python versions, I highly recommend using pyenv. [Here](https://realpython.com/intro-to-pyenv/) is the great tutorial for it. 
+- Postgres 
+ *  If you don't have Postgres installed, please install from this [link](https://www.postgresql.org/download/)
+
 ## Datasets
 - Song Dataset
     - A subset of data from the Million Song Dataset. Each file is in JSON format and contains mtadata about a song and the artist of that song. 
@@ -66,5 +74,7 @@ Times Table
  * weekday text
  
 ## Output Example 
-
+```
+SELECT * FROM songplays LIMIT 5;
+```
 ![query-output](https://github.com/ArataKagan/Postgres-Data-Modeling/blob/main/query1.png)
