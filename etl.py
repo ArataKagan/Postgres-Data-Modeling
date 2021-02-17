@@ -6,6 +6,18 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    """
+    Description: This function is responsible for extracting artist and song data based on 
+    selected columns and inserting into song and artist database. 
+
+    Arguments: 
+        cur: the cursor object
+        filepath: song_data file path
+    
+    Returns:
+        None
+    """
+
     # open song file
     df = pd.read_json(filepath, lines=True)
 
@@ -19,6 +31,17 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """
+    Description: This function is responsible for extracting time and user data, and inserting into each database. 
+    For the time table, timestamp data is transformed into hour, day, week, month, year and weekday. 
+
+    Arguments: 
+        cur: the cursor object
+        filepath: log_data file path
+    
+    Returns:
+        None
+    """
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -55,15 +78,30 @@ def process_log_file(cur, filepath):
         
         if results:
             songid, artistid = results
+            print(songid, " ", artistid)
         else:
             songid, artistid = None, None
 
         # insert songplay record
-        songplay_data = (index, pd.to_datetime(row.ts, unit="ms"), int(row.userId), row.level, songid, artistid, int(row.sessionId), row.location, row.userAgent)
+        songplay_data = (pd.to_datetime(row.ts, unit="ms"), int(row.userId), row.level, songid, artistid, int(row.sessionId), row.location, row.userAgent)
         cur.execute(songplay_table_insert, songplay_data)
 
 
 def process_data(cur, conn, filepath, func):
+    """
+    Description: This function is responsible for listing the files in a directory,
+    and then execuring the ingest process for each file according to the function that
+    performs the transformation to save it to the database. 
+
+    Arguments: 
+        cur: the cursor object
+        conn: connection to the database
+        filepath: song or log data file path
+        func: function for transforming song and log data 
+
+    Returns:
+        None
+    """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
